@@ -1,0 +1,890 @@
+<html><head><base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<style>
+/* Update general styling */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f7f8fa;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0;
+  padding: 15px;
+  background: transparent;
+  box-shadow: none;
+  padding-bottom: 80px;
+}
+
+/* Modern card styling */
+form, .table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+  padding: 16px;
+}
+
+/* Make tables horizontally scrollable on mobile */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -15px;
+  padding: 0 15px;
+}
+
+table {
+  min-width: 600px; /* Ensure minimum width for content */
+  border-spacing: 0;
+  width: 100%;
+}
+
+th {
+  background: #f8f9fa;
+  color: #666;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td, th {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Modern input styling */
+input, select, button {
+  -webkit-appearance: none;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  font-size: 16px; /* Prevent zoom on iOS */
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+
+button {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 16px;
+}
+
+button:active {
+  opacity: 0.7;
+}
+
+/* Modern navigation tabs */
+.nav-tabs {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  padding: 12px;
+  border-top: 1px solid #eee;
+  height: 70px;
+  display: flex;
+  gap: 8px;
+}
+
+.nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  color: #666;
+  font-size: 12px;
+  font-weight: 500;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-tab:active {
+  background: rgba(0,123,255,0.2);
+}
+
+.nav-tab::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  background-size: 24px;
+  margin-bottom: 4px;
+}
+
+.nav-tab[data-tab="adherents"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+}
+
+.nav-tab[data-tab="adherents-list"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/%3E%3C/svg%3E");
+}
+
+.nav-tab[data-tab="payments"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z'/%3E%3C/svg%3E");
+}
+
+.nav-tab[data-tab="reports"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/%3E%3C/svg%3E");
+}
+
+.nav-tab.active {
+  color: #007bff;
+  background: rgba(0,123,255,0.1);
+}
+
+.nav-tab.active::before {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(57%) saturate(2728%) hue-rotate(203deg) brightness(102%) contrast(107%);
+}
+
+/* Status badges */
+.late-payment {
+  color: #dc3545;
+  background: rgba(220,53,69,0.1);
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Section padding to avoid nav overlap */
+.section {
+  display: none;
+  padding-bottom: 90px;
+}
+
+.section.active {
+  display: block;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div style="margin-bottom: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+        <label for="globalPaymentStartDate" style="font-weight: bold;">Date de début de cotisation globale:</label>
+        <input type="date" id="globalPaymentStartDate" style="margin-left: 10px;">
+    </div>
+    <div class="nav-tabs">
+        <div class="nav-tab active" data-tab="adherents">Adhérents</div>
+        <div class="nav-tab" data-tab="adherents-list">Liste</div>
+        <div class="nav-tab" data-tab="payments">Paiements</div>
+        <div class="nav-tab" data-tab="reports">Rapports</div>
+    </div>
+
+    <div class="section active" id="adherents">
+        <h2>Gestion des Adhérents</h2>
+        <form id="adherentForm">
+            <input type="text" id="name" placeholder="Nom complet" required>
+            <input type="date" id="startDate" required>
+            <button type="submit">Ajouter Adhérent</button>
+        </form>
+        <div class="table-wrapper">
+          <table id="adherentsTable">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Date d'inscription</th>
+                    <th>Date de début cotisation</th>
+                    <th>Dernier paiement</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+    </div>
+
+    <div class="section" id="adherents-list">
+        <h2>Liste des Adhérents</h2>
+        <div class="table-wrapper">
+            <table id="adherentsListTable">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Date d'inscription</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section" id="payments">
+        <h2>Gestion des Paiements</h2>
+        <form id="paymentForm">
+            <select id="adherentSelect" required>
+                <option value>Sélectionner un adhérent</option>
+            </select>
+            <input type="number" id="amount" placeholder="Montant" required>
+            <input type="date" id="paymentDate" required>
+            <button type="submit">Enregistrer Paiement</button>
+        </form>
+        <div class="table-wrapper">
+          <table id="paymentsTable">
+            <thead>
+                <tr>
+                    <th>Adhérent</th>
+                    <th>Montant</th>
+                    <th>Date</th>
+                    <th>Jours couverts</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+    </div>
+
+    <div class="section" id="reports">
+        <h2>Rapports</h2>
+        <div>
+            <div>
+                <label for="globalPaymentStartDate">Date de début de cotisation globale:</label>
+                <input type="date" id="globalPaymentStartDate" onchange="updateGlobalPaymentStartDate(event)">
+            </div>
+            <input type="date" id="reportStartDate">
+            <input type="date" id="reportEndDate">
+            <button onclick="generateReport()">Générer le rapport</button>
+            <button onclick="exportToPDF()">Exporter en PDF</button>
+            <button onclick="exportToEmail()">Sauvegarder par Email</button>
+            <div>
+                <label for="importFile">Restaurer les données:</label>
+                <input type="file" id="importFile" accept=".xlsx" onchange="importFromExcel(event)">
+            </div>
+            <button onclick="deleteAllData()" style="background: #dc3545; margin-top: 20px;">Supprimer toutes les données</button>
+        </div>
+        <div id="reportResults"></div>
+    </div>
+</div>
+
+<script id="sw" type="text/javascript">
+  self.addEventListener('install', (event) => {
+    event.waitUntil(
+      caches.open('v1').then((cache) => {
+        return cache.addAll([
+          './',
+          './index.html',
+          './manifest.json'
+        ]);
+      })
+    );
+  });
+
+  self.addEventListener('fetch', (event) => {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return response || fetch(event.request);
+      })
+    );
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>class DataManager {
+  constructor() {
+    this.adherents = JSON.parse(localStorage.getItem('adherents')) || [];
+    this.payments = JSON.parse(localStorage.getItem('payments')) || [];
+    this.checkPaymentStatuses();
+  }
+  saveData() {
+    localStorage.setItem('adherents', JSON.stringify(this.adherents));
+    localStorage.setItem('payments', JSON.stringify(this.payments));
+  }
+  addAdherent(adherent) {
+    const globalPaymentStartDate = localStorage.getItem('globalPaymentStartDate') || new Date().toISOString().split('T')[0];
+    this.adherents.push({
+      id: Date.now(),
+      ...adherent,
+      paymentStartDate: globalPaymentStartDate,
+      createdAt: new Date().toISOString()
+    });
+    this.saveData();
+  }
+  addPayment(payment) {
+    this.payments.push({
+      id: Date.now(),
+      ...payment,
+      createdAt: new Date().toISOString()
+    });
+    this.saveData();
+  }
+  deleteAdherent(id) {
+    this.adherents = this.adherents.filter(a => a.id !== id);
+    this.payments = this.payments.filter(p => p.adherentId !== id);
+    this.saveData();
+  }
+  deletePayment(id) {
+    this.payments = this.payments.filter(p => p.id !== id);
+    this.saveData();
+  }
+  updateAdherent(id, data) {
+    this.adherents = this.adherents.map(a => a.id === id ? {
+      ...a,
+      ...data
+    } : a);
+    this.saveData();
+  }
+  updatePayment(id, data) {
+    this.payments = this.payments.map(p => p.id === id ? {
+      ...p,
+      ...data
+    } : p);
+    this.saveData();
+  }
+  checkPaymentStatuses() {
+    const today = new Date();
+    this.adherents.forEach(adherent => {
+      const paymentStartDate = new Date(adherent.paymentStartDate);
+      const daysElapsed = Math.floor((today - paymentStartDate) / (1000 * 60 * 60 * 24));
+      const totalPaid = this.payments
+        .filter(p => p.adherentId === adherent.id)
+        .reduce((sum, p) => sum + p.amount, 0);
+      const daysCovered = Math.floor(totalPaid / 500);
+      const daysOwed = Math.max(0, daysElapsed - daysCovered);
+      const amountOwed = daysOwed * 500;
+      
+      adherent.isLate = daysElapsed > daysCovered;
+      adherent.daysOwed = daysOwed;
+      adherent.amountOwed = amountOwed;
+    });
+    this.saveData();
+  }
+  getLastPayment(adherentId) {
+    return this.payments.filter(p => p.adherentId === adherentId).sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+  }
+}
+class UI {
+  constructor(dataManager) {
+    this.dataManager = dataManager;
+    this.initializeEventListeners();
+    this.setupPullToRefresh();
+    this.preventBounce();
+    
+    // Set initial active tab
+    this.switchTab('adherents');
+    
+    this.updateUI();
+  }
+  switchTab(tabId) {
+    // Hide all sections first
+    document.querySelectorAll('.section').forEach(section => {
+      section.style.display = 'none';
+    });
+    
+    // Show the selected section
+    const selectedSection = document.getElementById(tabId);
+    if (selectedSection) {
+      selectedSection.style.display = 'block';
+    }
+    
+    // Update active tab styling
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.classList.remove('active');
+      if (tab.dataset.tab === tabId) {
+        tab.classList.add('active');
+      }
+    });
+  }
+  initializeEventListeners() {
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabId = tab.dataset.tab;
+        this.switchTab(tabId);
+      });
+    });
+    
+    document.getElementById('adherentForm').addEventListener('submit', e => {
+      e.preventDefault();
+      this.handleAdherentSubmit();
+    });
+    
+    document.getElementById('paymentForm').addEventListener('submit', e => {
+      e.preventDefault();
+      this.handlePaymentSubmit();
+    });
+  }
+  handleAdherentSubmit() {
+    const form = document.getElementById('adherentForm');
+    const adherent = {
+      name: form.name.value,
+      startDate: form.startDate.value,
+      isLate: false
+    };
+    this.dataManager.addAdherent(adherent);
+    form.reset();
+    this.updateUI();
+  }
+  handlePaymentSubmit() {
+    const form = document.getElementById('paymentForm');
+    const payment = {
+      adherentId: parseInt(form.adherentSelect.value),
+      amount: parseFloat(form.amount.value),
+      date: form.paymentDate.value
+    };
+    this.dataManager.addPayment(payment);
+    this.dataManager.checkPaymentStatuses();
+    form.reset();
+    this.updateUI();
+  }
+  updateUI() {
+    this.updateAdherentsTable();
+    this.updatePaymentsTable();
+    this.updateAdherentSelect();
+    this.updateAdherentsList();
+  }
+  updateAdherentsTable() {
+    const tbody = document.querySelector('#adherentsTable tbody');
+    tbody.innerHTML = '';
+    this.dataManager.adherents.forEach(adherent => {
+      const tr = document.createElement('tr');
+      const statusClass = adherent.isLate ? 'late-payment' : '';
+      const statusText = adherent.isLate ? 
+        `En retard (${adherent.daysOwed} jours - ${adherent.amountOwed} Ar)` : 
+        'À jour';
+      
+      tr.innerHTML = `
+        <td>${adherent.name}</td>
+        <td>${new Date(adherent.startDate).toLocaleDateString()}</td>
+        <td>${new Date(adherent.paymentStartDate || adherent.startDate).toLocaleDateString()}</td>
+        <td>${this.getLastPaymentDate(adherent.id)}</td>
+        <td class="${statusClass}">${statusText}</td>
+        <td>
+          <button onclick="ui.editAdherent(${adherent.id})">Modifier</button>
+          <button onclick="ui.deleteAdherent(${adherent.id})">Supprimer</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+  updatePaymentsTable() {
+    const tbody = document.querySelector('#paymentsTable tbody');
+    tbody.innerHTML = '';
+    this.dataManager.payments.forEach(payment => {
+      const adherent = this.dataManager.adherents.find(a => a.id === payment.adherentId);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${adherent ? adherent.name : 'Inconnu'}</td>
+        <td>${payment.amount} Ar</td>
+        <td>${new Date(payment.date).toLocaleDateString()}</td>
+        <td>${this.calculateCoveredDays(payment.amount)} jours</td>
+        <td>
+          <button onclick="ui.editPayment(${payment.id})">Modifier</button>
+          <button onclick="ui.deletePayment(${payment.id})">Supprimer</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+  updateAdherentSelect() {
+    const select = document.getElementById('adherentSelect');
+    select.innerHTML = '<option value="">Sélectionner un adhérent</option>';
+    this.dataManager.adherents.forEach(adherent => {
+      select.innerHTML += `<option value="${adherent.id}">${adherent.name}</option>`;
+    });
+  }
+  updateAdherentsList() {
+    const tbody = document.querySelector('#adherentsListTable tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    this.dataManager.adherents
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach(adherent => {
+            const tr = document.createElement('tr');
+            const statusClass = adherent.isLate ? 'late-payment' : '';
+            const statusText = adherent.isLate ? 
+              `En retard (${adherent.daysOwed} jours - ${adherent.amountOwed} Ar)` : 
+              'À jour';
+            
+            tr.innerHTML = `
+                <td>${adherent.name}</td>
+                <td>${new Date(adherent.startDate).toLocaleDateString()}</td>
+                <td class="${statusClass}">${statusText}</td>
+            `;
+            tr.addEventListener('click', () => {
+                this.switchTab('adherents');
+                this.editAdherent(adherent.id);
+            });
+            tbody.appendChild(tr);
+        });
+  }
+  editPayment(id) {
+    const payment = this.dataManager.payments.find(p => p.id === id);
+    if (!payment) return;
+    const form = document.getElementById('paymentForm');
+    form.adherentSelect.value = payment.adherentId;
+    form.amount.value = payment.amount;
+    form.paymentDate.value = payment.date;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.textContent = 'Mettre à jour le paiement';
+    submitBtn.onclick = e => {
+      e.preventDefault();
+      this.dataManager.updatePayment(id, {
+        adherentId: parseInt(form.adherentSelect.value),
+        amount: parseFloat(form.amount.value),
+        date: form.paymentDate.value
+      });
+      form.reset();
+      submitBtn.textContent = 'Enregistrer Paiement';
+      submitBtn.onclick = null;
+      this.updateUI();
+    };
+  }
+  deletePayment(id) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce paiement ?')) {
+      this.dataManager.deletePayment(id);
+      this.updateUI();
+    }
+  }
+  getLastPaymentDate(adherentId) {
+    const payments = this.dataManager.payments.filter(p => p.adherentId === adherentId).sort((a, b) => new Date(b.date) - new Date(a.date));
+    return payments.length ? new Date(payments[0].date).toLocaleDateString() : 'Aucun';
+  }
+  calculateCoveredDays(amount) {
+    return Math.floor(amount / 500);
+  }
+  editAdherent(id) {
+    const adherent = this.dataManager.adherents.find(a => a.id === id);
+    if (!adherent) return;
+    const form = document.getElementById('adherentForm');
+    form.name.value = adherent.name;
+    form.startDate.value = adherent.startDate;
+    const globalPaymentStartDate = localStorage.getItem('globalPaymentStartDate');
+    if (globalPaymentStartDate) {
+      document.getElementById('globalPaymentStartDate').value = globalPaymentStartDate;
+    }
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.textContent = 'Mettre à jour';
+    submitBtn.onclick = e => {
+      e.preventDefault();
+      this.dataManager.updateAdherent(id, {
+        name: form.name.value,
+        startDate: form.startDate.value
+      });
+      this.dataManager.checkPaymentStatuses();
+      form.reset();
+      submitBtn.textContent = 'Ajouter Adhérent';
+      submitBtn.onclick = null;
+      this.updateUI();
+    };
+  }
+  deleteAdherent(id) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet adhérent ?')) {
+      this.dataManager.deleteAdherent(id);
+      this.updateUI();
+    }
+  }
+  setupPullToRefresh() {
+    let touchStartY = 0;
+    let touchEndY = 0;
+    const container = document.querySelector('.container');
+  
+    container.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    });
+
+    container.addEventListener('touchmove', e => {
+      if (container.scrollTop === 0) {
+        touchEndY = e.touches[0].clientY;
+        const pullDistance = touchEndY - touchStartY;
+      
+        if (pullDistance > 0) {
+          container.style.transform = `translateY(${Math.min(pullDistance/2, 80)}px)`;
+        }
+      }
+    });
+
+    container.addEventListener('touchend', () => {
+      container.style.transform = '';
+      container.style.transition = 'transform 0.3s ease-out';
+    
+      if (touchEndY - touchStartY > 100) {
+        this.updateUI();
+      }
+    
+      setTimeout(() => {
+        container.style.transition = '';
+      }, 300);
+    });
+  }
+
+  preventBounce() {
+    document.body.addEventListener('touchmove', (e) => {
+      if (document.querySelector('.container').scrollTop === 0 && 
+          !document.querySelector('.table-wrapper:hover')) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
+}
+const dataManager = new DataManager();
+const ui = new UI(dataManager);
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('sw.js', {
+        scope: './'
+      });
+      console.log('ServiceWorker registration successful');
+    } catch (err) {
+      console.log('ServiceWorker registration failed: ', err);
+    }
+  });
+}
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
+let xDown = null;
+let yDown = null;
+function handleTouchStart(evt) {
+  xDown = evt.touches[0].clientX;
+  yDown = evt.touches[0].clientY;
+}
+function handleTouchMove(evt) {
+  if (!xDown || !yDown) {
+    return;
+  }
+  
+  const xUp = evt.touches[0].clientX;
+  const yUp = evt.touches[0].clientY;
+  const xDiff = xDown - xUp;
+  const yDiff = yDown - yUp;
+  
+  if (Math.abs(xDiff) > Math.abs(yDiff)) {
+    const tabs = [...document.querySelectorAll('.nav-tab')];
+    const activeIndex = tabs.findIndex(t => t.classList.contains('active'));
+    
+    if (xDiff > 0 && activeIndex < tabs.length - 1) {
+      // Animate transition
+      document.querySelector('.container').style.transition = 'transform 0.3s ease-out';
+      document.querySelector('.container').style.transform = 'translateX(-10px)';
+      setTimeout(() => {
+        ui.switchTab(tabs[activeIndex + 1].dataset.tab);
+        document.querySelector('.container').style.transform = '';
+      }, 150);
+    } else if (xDiff < 0 && activeIndex > 0) {
+      document.querySelector('.container').style.transition = 'transform 0.3s ease-out';
+      document.querySelector('.container').style.transform = 'translateX(10px)';
+      setTimeout(() => {
+        ui.switchTab(tabs[activeIndex - 1].dataset.tab);
+        document.querySelector('.container').style.transform = '';
+      }, 150);
+    }
+  }
+  
+  xDown = null;
+  yDown = null;
+}
+function generateReport() {
+  const startDate = document.getElementById('reportStartDate').value;
+  const endDate = document.getElementById('reportEndDate').value;
+  if (!startDate || !endDate) {
+    alert('Veuillez sélectionner une période');
+    return;
+  }
+  const reportData = {
+    adherents: dataManager.adherents.filter(a => a.startDate >= startDate && a.startDate <= endDate),
+    payments: dataManager.payments.filter(p => p.date >= startDate && p.date <= endDate)
+  };
+  const resultsDiv = document.getElementById('reportResults');
+  resultsDiv.innerHTML = `
+        <h3>Rapport du ${new Date(startDate).toLocaleDateString()} au ${new Date(endDate).toLocaleDateString()}</h3>
+        <p>Nombre d'adhérents: ${reportData.adherents.length}</p>
+        <p>Total des paiements: ${reportData.payments.reduce((sum, p) => sum + p.amount, 0)} Ar</p>
+    `;
+}
+function exportToPDF() {
+  const {
+    jsPDF
+  } = window.jspdf;
+  const doc = new jsPDF();
+  doc.text("Rapport de Gestion des Adhérents", 10, 10);
+  let yPos = 30;
+  doc.text("Liste des Adhérents:", 10, yPos);
+  dataManager.adherents.forEach((adherent, i) => {
+    yPos += 10;
+    doc.text(`${adherent.name} - Inscrit le: ${new Date(adherent.startDate).toLocaleDateString()}`, 15, yPos);
+  });
+  yPos += 20;
+  doc.text("Résumé des Paiements:", 10, yPos);
+  const totalPayments = dataManager.payments.reduce((sum, p) => sum + p.amount, 0);
+  doc.text(`Total des paiements: ${totalPayments} Ar`, 15, yPos + 10);
+  doc.save("rapport_adherents.pdf");
+}
+function exportToEmail() {
+  const workbook = XLSX.utils.book_new();
+  
+  // Add config sheet with global payment start date
+  const configData = [{
+    globalPaymentStartDate: localStorage.getItem('globalPaymentStartDate')
+  }];
+  const configSheet = XLSX.utils.json_to_sheet(configData);
+  XLSX.utils.book_append_sheet(workbook, configSheet, "Config");
+  
+  const adherentsData = dataManager.adherents.map(a => ({
+    id: a.id,
+    name: a.name,
+    startDate: a.startDate,
+    paymentStartDate: a.paymentStartDate,
+    lastPayment: ui.getLastPaymentDate(a.id),
+    totalPayments: dataManager.payments
+      .filter(p => p.adherentId === a.id)
+      .reduce((sum, p) => sum + p.amount, 0)
+  }));
+  const adherentsSheet = XLSX.utils.json_to_sheet(adherentsData);
+  XLSX.utils.book_append_sheet(workbook, adherentsSheet, "Adhérents");
+
+  const paymentsData = dataManager.payments.map(p => ({
+    id: p.id,
+    adherentId: p.adherentId,
+    adherentName: dataManager.adherents.find(a => a.id === p.adherentId)?.name || 'Inconnu',
+    amount: p.amount,
+    date: p.date,
+    createdAt: p.createdAt
+  }));
+  const paymentsSheet = XLSX.utils.json_to_sheet(paymentsData);
+  XLSX.utils.book_append_sheet(workbook, paymentsSheet, "Paiements");
+
+  const excelBuffer = XLSX.write(workbook, {
+    bookType: 'xlsx',
+    type: 'array'
+  });
+  const blob = new Blob([excelBuffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  });
+  const url = URL.createObjectURL(blob);
+  const emailSubject = "Sauvegarde des données de cotisation";
+  const emailBody = "Veuillez trouver ci-joint les données de cotisation.";
+  const mailtoLink = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+  
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'cotisations_backup.xlsx';
+  link.click();
+  window.location.href = mailtoLink;
+}
+function importFromExcel(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, {
+      type: 'array'
+    });
+    
+    // Import global payment start date if available
+    const configSheet = workbook.Sheets["Config"];
+    if (configSheet) {
+      const config = XLSX.utils.sheet_to_json(configSheet);
+      if (config[0] && config[0].globalPaymentStartDate) {
+        localStorage.setItem('globalPaymentStartDate', config[0].globalPaymentStartDate);
+        const globalPaymentDateInput = document.getElementById('globalPaymentStartDate');
+        if (globalPaymentDateInput) {
+          globalPaymentDateInput.value = config[0].globalPaymentStartDate;
+        }
+      }
+    }
+    
+    const adherentsSheet = workbook.Sheets["Adhérents"];
+    if (adherentsSheet) {
+      const adherents = XLSX.utils.sheet_to_json(adherentsSheet);
+      adherents.forEach(a => {
+        if (!a.id) a.id = Date.now();
+        if (!a.createdAt) a.createdAt = new Date().toISOString();
+        // Ensure paymentStartDate is preserved
+        if (!a.paymentStartDate) {
+          a.paymentStartDate = localStorage.getItem('globalPaymentStartDate') || a.startDate;
+        }
+      });
+      dataManager.adherents = adherents;
+    }
+
+    const paymentsSheet = workbook.Sheets["Paiements"];
+    if (paymentsSheet) {
+      const payments = XLSX.utils.sheet_to_json(paymentsSheet);
+      payments.forEach(p => {
+        if (!p.id) p.id = Date.now();
+        if (!p.createdAt) p.createdAt = new Date().toISOString();
+      });
+      dataManager.payments = payments;
+    }
+    
+    dataManager.saveData();
+    dataManager.checkPaymentStatuses();
+    ui.updateUI();
+    alert('Données importées avec succès');
+  };
+  reader.readAsArrayBuffer(file);
+}
+function deleteAllData() {
+  if (confirm('Êtes-vous sûr de vouloir supprimer toutes les données ? Cette action est irréversible.')) {
+    // Clear data arrays
+    dataManager.adherents = [];
+    dataManager.payments = [];
+    
+    // Clear localStorage
+    localStorage.removeItem('adherents');
+    localStorage.removeItem('payments');
+    localStorage.removeItem('globalPaymentStartDate');
+    
+    // Reset global payment start date input
+    const globalPaymentDateInput = document.getElementById('globalPaymentStartDate');
+    if (globalPaymentDateInput) {
+      globalPaymentDateInput.value = '';
+    }
+    
+    // Update UI
+    ui.updateUI();
+    
+    alert('Toutes les données ont été supprimées avec succès');
+  }
+}
+function updateGlobalPaymentStartDate(event) {
+  const newDate = event.target.value;
+  localStorage.setItem('globalPaymentStartDate', newDate);
+  dataManager.adherents.forEach(adherent => {
+    adherent.paymentStartDate = newDate;
+  });
+  dataManager.saveData();
+  dataManager.checkPaymentStatuses();
+  ui.updateUI();
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const globalPaymentDateInput = document.getElementById('globalPaymentStartDate');
+  const savedDate = localStorage.getItem('globalPaymentStartDate');
+  if (savedDate) {
+    globalPaymentDateInput.value = savedDate;
+  }
+  globalPaymentDateInput.addEventListener('change', updateGlobalPaymentStartDate);
+});</script>
+</body>
+</html>
